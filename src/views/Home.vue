@@ -84,12 +84,12 @@
           </p>
         </div>
         <div class="ershoufangli">
-          <ul v-for="item,i in secondHandHouse" :key="i">
-            <li :class="i==3?'removeclass':''">
-              <!-- v-for="item in secondHandHouse" :key=item.id -->
+          <ul v-for="item,i in secondHandHouse"
+              :key="i">
+            <li :id="i==3?'removeclass':''">
               <a href="#">
                 <div class="wra">
-                  <img :src="require(`../assets/images/${item.photo}.jpg`)" >
+                  <img :src="require(`../assets/images/${item.photo}.jpg`)">
                   <div class="bottom">
                     <p class="position">{{item.name}}</p>
                     <p class="position"> {{item.place}} </p>
@@ -115,11 +115,20 @@
           </p>
         </div>
         <div class="newhouselist">
-          <ul>
-            <li>
-              <a href="#">
+          <ul >
+            
+            <li v-for="(item,i) in newHouse" :key="i"  :id="i==2?'removeclass':''">
+              <a id="nha"
+                 href="#">
                 <div class="bg"></div>
-                <img src="../assets/images/nhouse1.jpg" alt="">
+                <img id="nh" :src="require(`../assets/images/${item.photo}.jpg`)" alt="">
+                <!-- <img id="nh" src="../assets/images/nhouse1.jpg"> -->
+                <div class="title">
+                  {{item.title}}
+                  <span>
+                    <label>{{item.price}}</label>元/平
+                  </span>
+                </div>
               </a>
             </li>
           </ul>
@@ -146,43 +155,63 @@ export default {
       //二手房信息
       secondHandHouse: [
         {
-        id: 1,
-        photo:'esf1',
-        name: '南朗镇·南朗镇',
-        place: '锦绣海湾城六期红树邻',
-        tips: '3室2厅·103平米',
-        tipsPrice: '132万',
-        marRight:true
+          id: 1,
+          photo: 'esf1',
+          name: '南朗镇·南朗镇',
+          place: '锦绣海湾城六期红树邻',
+          tips: '3室2厅·103平米',
+          tipsPrice: '132万',
+          marRight: true
         },
         {
-          id:2,
-          photo:"esf2",
-          name:"火炬·华佗山公园",
-          place:"君华新城",
-          tips:"3室2厅·118平米",
-          tipsPrice:"155万",
-         marRight:true
+          id: 2,
+          photo: "esf2",
+          name: "火炬·华佗山公园",
+          place: "君华新城",
+          tips: "3室2厅·118平米",
+          tipsPrice: "155万",
+          marRight: true
         },
-         {
-          id:3,
-          photo:"esf3",
-          name:"火炬·中职院",
-          place:"水木年华",
-          tips:"3室2厅·109平米",
-          tipsPrice:"155万",
-          marRight:true
+        {
+          id: 3,
+          photo: "esf3",
+          name: "火炬·中职院",
+          place: "水木年华",
+          tips: "3室2厅·109平米",
+          tipsPrice: "155万",
+          marRight: true
         },
-         {
-          id:4,
-          photo:"esf4",
-          name:"坦洲镇·坦洲镇",
-          place:"誉峯名门",
-          tips:"3室2厅·99.26平米",
-          tipsPrice:"150万",
-          marRight:false
+        {
+          id: 4,
+          photo: "esf4",
+          name: "坦洲镇·坦洲镇",
+          place: "誉峯名门",
+          tips: "3室2厅·99.26平米",
+          tipsPrice: "150万",
+          marRight: false
         }
       ],
-      
+      //新房信息
+      newHouse: [
+        {
+          id: 1,
+          photo: 'nhouse1',
+          title: '锦绣海湾城九期',
+          price: '19500',
+        },
+        {
+          id: 2,
+          photo: 'nhouse2',
+          title: '远洋山水',
+          price: '14500',
+        },
+        {
+          id: 3,
+          photo: 'nhouse3',
+          title: '天基叠彩领峰',
+          price: '12000',
+        },
+      ]
     };
   },
   methods: {
@@ -194,12 +223,8 @@ export default {
 </script>
 
 <style scoped>
-dl,
-dt,
-dd,
-ul,
-ol,
-li {
+ul
+ {
   list-style: none;
   margin: 0px;
   padding: 0px;
@@ -392,16 +417,14 @@ a {
 .container3 .f1 .message {
   height: 50px;
 }
-.container3 .f1 .message p ,
-.newHouse .wrapper .f1 p
-{
+.container3 .f1 .message p,
+.newHouse .wrapper .f1 p {
   color: black;
   margin-top: 10px;
   color: #888;
 }
-.container3 .f1 p a ,
-.newHouse .wrapper .f1 p a
-{
+.container3 .f1 p a,
+.newHouse .wrapper .f1 p a {
   float: right;
   color: #888;
 }
@@ -418,11 +441,12 @@ a {
   height: 323px;
   float: left;
   margin-right: 29px;
+  padding: 0px;
 }
 /* .container3 .f1 .ershoufangli ul li:nth-child(4){
   margin-right: 0px;
 } */
-.container3 .f1 .ershoufangli ul .removeclass{
+#removeclass {
   margin-right: 0px;
 }
 .container3 .f1 .ershoufangli ul li a {
@@ -453,81 +477,109 @@ a {
   font-size: 16px;
   color: #fa5741;
 }
-.newHouse{
+.newHouse {
   width: 100%;
   height: 422px;
   padding-top: 50px;
-  background-color: aliceblue;
 }
-.newHouse .wrapper{
+.newHouse .wrapper {
   width: 1150px;
   height: 368px;
   margin: auto;
-  background-color: antiquewhite;
 }
-.newHouse .wrapper .f1{
+.newHouse .wrapper .f1 {
   width: 1150px;
   height: 62px;
 }
-.newHouse .wrapper .f1 .name{
+.newHouse .wrapper .f1 .name {
   width: 161px;
   height: 35px;
-  background-image:url("../assets/images/newhouse.png");
+  background-image: url("../assets/images/newhouse.png");
 }
-.newHouse .wrapper .f1 p{
+.newHouse .wrapper .f1 p {
   margin-top: 8px;
 }
-.newHouse .wrapper .newhouselist{
+.newHouse .wrapper .newhouselist {
   width: 1150px;
   height: 300px;
-  top:41px;
+  top: 41px;
   position: relative;
-  overflow: hidden;
 }
-.newHouse .wrapper .newhouselist ul{
+.newHouse .wrapper .newhouselist ul {
   height: 260px;
   width: 1150px;
   position: absolute;
   top: 0px;
   left: 0px;
+  float: left;
 }
-.newHouse .wrapper .newhouselist ul a{
+.newHouse .wrapper .newhouselist ul li {
+  position: relative;
+  float: left;
+  width: 350px;
+  height: 260px;
+  margin-right: 50px;
+}
+.newHouse .wrapper .newhouselist ul a {
   width: 350px;
   height: 260px;
   overflow: hidden;
   display: block;
   position: relative;
-  float: left;
   margin-right: 50px;
 }
 
-.newHouse .wrapper .newhouselist ul img
-{
+.newHouse .wrapper .newhouselist ul img {
   width: 360px;
   height: 260px;
   position: absolute;
-  left: 0;
   bottom: 0;
-  background-position: center;
+  left: 0;
   transform: scale(1);
   transition: transform 1s ease 0s;
-  z-index: 20;
+  z-index: 0;
 }
-.newHouse .wrapper .newhouselist ul .bg:hover+
-.newHouse .wrapper .newhouselist ul img
-{
+/* 鼠标停留在a标签上时，改变图片的大小 ps:该关系为父子，直接空格。若为兄弟关系，则+相连 。*/
+#nha:hover #nh {
   /* 图片放大1.05倍 */
   transform: scale(1.05);
 }
-.newHouse .wrapper .newhouselist ul li a .bg{
+.newHouse .wrapper .newhouselist ul li a .bg {
   width: 350px;
   height: 260px;
-  position: absolute;
-  left: 0;
-  bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 30;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 20;
   transform: scale(1);
   transition: transform 1s ease 0s;
+}
+.newHouse .wrapper .newhouselist ul li .title {
+  width: 220px;
+  height: 66px;
+  position: absolute;
+  z-index: 30;
+  top: 50%;
+  left: 50%;
+  margin-top: -33px;
+  margin-left: -110px;
+  color: white;
+  font-size: 24px;
+  font-weight: 700;
+  text-align: center;
+  text-shadow: 0 1px 4px rgb(0 0 0 / 60%);
+}
+.newHouse .wrapper .newhouselist ul li .title span {
+  color: #fff2ab;
+  font-size: 17px;
+  font-weight: normal;
+}
+.newHouse .wrapper .newhouselist ul li .title label {
+  font-weight: 700;
+  font-size: 20px;
+  font-family: tahoma;
+  position: relative;
+  top: 1px;
 }
 </style>
