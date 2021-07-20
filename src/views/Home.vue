@@ -135,16 +135,19 @@
         </div>
       </div>
     </div>
+   <!-- footer -->
+   <footerComponent></footerComponent>
   </div>
 </template>
 
 
 <script>
 import Search from "@/components/SearchComponent.vue"
-
+import footerComponent from "@/components/footer.vue"
 export default {
   components: {
-    Search
+    Search,
+    footerComponent
   },
   data () {
     return {
@@ -582,4 +585,5 @@ a {
   position: relative;
   top: 1px;
 }
+
 </style>
