@@ -2,11 +2,12 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import ElementUI from 'element-ui'
+import $ from 'jquery'
 import 'element-ui/lib/theme-chalk/index.css'
 //数据请求，导入axios，先安装   npm install axios   
 import axios from 'axios'
 Vue.config.productionTip = false
-
+Vue.prototype.$=$;
 
 
 

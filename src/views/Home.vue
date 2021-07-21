@@ -6,19 +6,20 @@
                  mode="horizontal"
                  @select="handleSelect"
                  text-color="#fff"
+                 router
                  active-text-color="#ffd04b">
-          <el-menu-item index="1">
+          <el-menu-item index="/">
             <a href="#"
                class="logo">
               <img src="../assets/images/conglogo.png"
                    alt="">
             </a>
           </el-menu-item>
-          <el-menu-item index="2">展览中心</el-menu-item>
+          <el-menu-item index="/e">展览中心</el-menu-item>
           <el-menu-item index="3">处理中心</el-menu-item>
           <el-menu-item index="5"
                         v-if="userState==1">个人中心</el-menu-item>
-          <el-menu-item index="9"
+          <el-menu-item index="/l" 
                         v-if="userState==0">登录</el-menu-item>
           <el-menu-item index="10"
                         v-if="userState==1">登出</el-menu-item>
@@ -152,7 +153,7 @@ export default {
   data () {
     return {
       // 用户登录状态，已登录为1，未登录为0
-      userState: 1,
+      userState: 0,
       //在售房产数量
       onsalehouse: 15687,
       //二手房信息
