@@ -1,8 +1,7 @@
 <template>
   <div class="body">
-    <el-menu :default-active="activeIndex"
+    <el-menu 
              mode="horizontal"
-             @select="menuSelect"
              router>
       <el-menu-item class="logo"
                     index="/">
@@ -13,21 +12,23 @@
       <div class="box">
         <div class="title">登录</div>
         <div class="input">
-          <label for="name">用户名</label>
+          <label for="name"  >用户名</label>
           <input type="text"
                  name="name"
-                 id="name">
+                 id="name"
+                 v-model="onlineInput.name">
           <span class="spin"></span>
         </div>
         <div class="input">
           <label for="pass">密码</label>
           <input type="password"
                  name="pass"
-                 id="pass">
+                 id="pass"
+                 v-model="onlineInput.password">
           <span class="spin"></span>
         </div>
         <div class="button login">
-          <button>
+          <button  @click="loginFunction">
             <span>登录</span>
             <i class="fa fa-check"></i>
           </button>
@@ -45,25 +46,28 @@
           <label for="regname">用户名</label>
           <input type="text"
                  name="regname"
-                 id="regname">
+                 id="regname"
+                 v-model="Registered.name">
           <span class="spin"></span>
         </div>
         <div class="input">
           <label for="regpass">密码</label>
           <input type="password"
                  name="regpass"
-                 id="regpass">
+                 id="regpass"
+                v-model="Registered.password">
           <span class="spin"></span>
         </div>
         <div class="input">
           <label for="reregpass">确认密码</label>
           <input type="password"
                  name="reregpass"
-                 id="reregpass">
+                 id="reregpass"
+                 v-model="Registered.reregpass">
           <span class="spin"></span>
         </div>
         <div class="button">
-          <button>
+          <button @click="registerFunction">
             <span>注册</span>
           </button>
         </div>
@@ -75,6 +79,50 @@
 import $ from 'jquery'
 
 export default {
+  data(){
+    return{
+      // 用户输入的账号密码
+      onlineInput:{name:"",password:"",role:"user"},
+      // 用户注册的账号密码
+      Registered:{name:"",password:"",reregpass:"",role:"user"},
+      // 是否登录成功
+      successLogin:0
+    }
+  },
+  methods:{
+    // 登录按钮
+    loginFunction(){
+      this.successLogin=0;
+      if(this.onlineInput.name==""||this.onlineInput.password==""){
+        return alert("输入的账号和密码不能为空哦！");
+      }
+      console.log("用户登录的用户名："+this.onlineInput.name);
+      console.log("用户登录的密码："+this.onlineInput.password);
+      var isExistence=JSON.parse(localStorage.getItem(this.onlineInput.name));
+      console.log("isExistence："+isExistence);
+      console.log("用过username获得的password:"+isExistence.password);
+      if(isExistence==null){
+        return alert("您输入的账号不存在！");
+      }else if(isExistence.password!=this.onlineInput.password){
+        return alert("您输入的密码错误啦！");
+      }
+      // 登录成功
+      this.successLogin=1;
+      localStorage.setItem("successLogin",this.successLogin);
+      // console.log("successLogin:"+localStorage.getItem("successLogin"));
+      this.$router.push({path:"/"});
+    },
+    // 注册按钮
+    registerFunction(){
+      console.log("用户注册的用户名："+this.Registered.name);
+      console.log("用户注册的密码："+this.Registered.password);
+      if(this.Registered.password!=this.Registered.reregpass){
+        return alert("输入的两次密码不一样！");
+      }
+      localStorage.setItem(this.Registered.name,JSON.stringify(this.Registered));
+      console.log("注册成功的JSON数据："+localStorage.getItem(this.Registered.name));
+    }
+  },
   mounted: function () {
 
     $(function () {

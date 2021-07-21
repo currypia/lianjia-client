@@ -1,42 +1,7 @@
 <template>
   <div class="manage">
     <div class="container1">
-      <div class="c1-wapper">
-        <el-menu class="el-menu"
-                 mode="horizontal"
-                 @select="handleSelect"
-                 text-color="#fff"
-                 router
-                 active-text-color="#ffd04b">
-          <el-menu-item index="/">
-            <a href="#"
-               class="logo">
-              <img src="../assets/images/conglogo.png"
-                   alt="">
-            </a>
-          </el-menu-item>
-          <el-menu-item index="/e">展览中心</el-menu-item>
-          <el-menu-item index="3">处理中心</el-menu-item>
-          <el-menu-item index="5"
-                        v-if="userState==1">个人中心</el-menu-item>
-          <el-menu-item index="/l" 
-                        v-if="userState==0">登录</el-menu-item>
-          <el-menu-item index="10"
-                        v-if="userState==1">登出</el-menu-item>
-        </el-menu>
-        <div class="header-warp">
-          <div class="wrap-ico"></div>
-          <div class="fakerhouse">
-            <ul>
-              <li style="heigit:35px">中山虚拟房产中介</li>
-              <!-- <li style="heigit:35px">中山虚拟在售{{this.onsalehouse}}</li> -->
-            </ul>
-          </div>
-          <div class="Search">
-            <Search></Search>
-          </div>
-        </div>
-      </div>
+      <headercomponent></headercomponent>
       <!-- 声明 -->
       <div class="warp-video">
         <div class="pen">
@@ -144,16 +109,18 @@
 
 <script>
 import Search from "@/components/SearchComponent.vue"
-import footerComponent from "@/components/footer.vue"
+import footerComponent from "@/components/footercomponent.vue"
+import headercomponent from "@/components/headercomponent.vue"
 export default {
   components: {
     Search,
-    footerComponent
+    footerComponent,
+    headercomponent
   },
   data () {
     return {
       // 用户登录状态，已登录为1，未登录为0
-      userState: 0,
+      successLogin: 0,
       //在售房产数量
       onsalehouse: 15687,
       //二手房信息
@@ -217,6 +184,10 @@ export default {
         },
       ]
     };
+  },
+  mounted () {
+    this.successLogin=localStorage.getItem("successLogin");
+    console.log("在Home中得到的successLogin："+this.successLogin);
   },
   methods: {
     handleSelect (key, keyPath) {

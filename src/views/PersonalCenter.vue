@@ -2,12 +2,8 @@
   <div class="contain">
     <!-- 导航栏 -->
     <headercomponent> </headercomponent>
-    <div class="classifiedQuery">
-      <div class="position">
-        <dl>
-
-        </dl>
-      </div>
+    <div>
+      个人中心
     </div>
 
     <footercomponent></footercomponent>
@@ -37,19 +33,5 @@ li {
   margin: 0;
   padding: 0;
 }
-.classifiedQuery {
-  width: 1150px;
-  height: 295px;
-  background-color: aliceblue;
-  margin: auto;
-  position: relative;
-  top: -192px;
-}
-.classifiedQuery .position {
-  width: 1150px;
-  height: 109px;
-  position: absolute;
-  top: 50px;
-  background-color: bisque;
-}
+
 </style>

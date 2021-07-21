@@ -45,7 +45,7 @@
 </template>
 <script>
 export default {
-  name: 'footer',
+  name: 'footercomponent',
   data(){
     return{
       list:["关于链家","联系我们","加入我们","隐私声明","网站地图","友情链接"],
@@ -77,8 +77,9 @@ li{
   float: left;
 }
 .sfake .wrapper .f1 .text{
-  background-image: -webkit-image-set(url('../assets/images/bigphoto.png') 1x,url('../assets/images/bigphoto.png') 2x);
-  background-position: -19px -254px;
+  /* background-image: -webkit-image-set(url('../assets/images/bigphoto.png') 1x,url('../assets/images/bigphoto.png') 2x);
+  background-position: -19px -254px; */
+  background-image: url("../assets/images/w506h117.png");
   width: 501px;
   height: 115px;
   margin-top: 4px;

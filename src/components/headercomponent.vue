@@ -2,7 +2,6 @@
     <div class="bg">
       <el-menu class="el-menu"
                mode="horizontal"
-               @select="handleSelect"
                text-color="#fff"
                router
                active-text-color="#ffd04b">
@@ -13,13 +12,13 @@
           </a>
         </el-menu-item>
         <el-menu-item index="/e">展览中心</el-menu-item>
-        <el-menu-item index="3">处理中心</el-menu-item>
-        <el-menu-item index="5"
-                      v-if="userState==1">个人中心</el-menu-item>
+        <el-menu-item index="/b">业务中心</el-menu-item>
+        <el-menu-item index="/p"
+                      v-if="successLogin==1">个人中心</el-menu-item>
         <el-menu-item index="/l"
-                      v-if="userState==0">登录</el-menu-item>
-        <el-menu-item index="10"
-                      v-if="userState==1">登出</el-menu-item>
+                      v-if="successLogin==0">登录</el-menu-item>
+        <el-menu-item 
+                      v-if="successLogin==1" @click="signout">登出</el-menu-item>
       </el-menu>
       <div class="header-warp">
           <div class="wrap-ico"></div>
@@ -44,6 +43,22 @@ export default {
   name:"headercomponent",
   components:{
     Search
+  },
+  data(){
+    return{
+      // 用户登录状态，已登录为1，未登录为0
+      successLogin:'0'
+    }
+  },
+  mounted(){
+    this.successLogin=localStorage.getItem("successLogin");
+  },
+  methods:{
+    // 退出登录
+    signout(){
+      localStorage.setItem("successLogin",0);
+      this.successLogin=0;
+    }
   }
 }
 </script>
