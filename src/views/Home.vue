@@ -1,5 +1,8 @@
 <template>
   <div class="manage">
+    <div>
+      <el-backtop></el-backtop>
+    </div>
     <div class="container1">
       <headercomponent></headercomponent>
       <!-- 声明 -->
@@ -81,13 +84,17 @@
           </p>
         </div>
         <div class="newhouselist">
-          <ul >
-            
-            <li v-for="(item,i) in newHouse" :key="i"  :id="i==2?'removeclass':''">
+          <ul>
+
+            <li v-for="(item,i) in newHouse"
+                :key="i"
+                :id="i==2?'removeclass':''">
               <a id="nha"
                  href="#">
                 <div class="bg"></div>
-                <img id="nh" :src="require(`../assets/images/${item.photo}.jpg`)" alt="">
+                <img id="nh"
+                     :src="require(`../assets/images/${item.photo}.jpg`)"
+                     alt="">
                 <!-- <img id="nh" src="../assets/images/nhouse1.jpg"> -->
                 <div class="title">
                   {{item.title}}
@@ -101,8 +108,8 @@
         </div>
       </div>
     </div>
-   <!-- footer -->
-   <footerComponent></footerComponent>
+    <!-- footer -->
+    <footerComponent></footerComponent>
   </div>
 </template>
 
@@ -120,7 +127,7 @@ export default {
   data () {
     return {
       // 用户登录状态，已登录为1，未登录为0
-      successLogin: 0,
+      successLogin: 1,
       //在售房产数量
       onsalehouse: 15687,
       //二手房信息
@@ -186,8 +193,12 @@ export default {
     };
   },
   mounted () {
-    this.successLogin=localStorage.getItem("successLogin");
-    console.log("在Home中得到的successLogin："+this.successLogin);
+    if(localStorage.getItem("successLogin")==null){
+      this.successLogin=1;
+    }else{
+      this.successLogin = localStorage.getItem("successLogin");
+    }
+    console.log("在Home中得到的successLogin：" + this.successLogin);
   },
   methods: {
     handleSelect (key, keyPath) {
@@ -198,8 +209,7 @@ export default {
 </script>
 
 <style scoped>
-ul
- {
+ul {
   list-style: none;
   margin: 0px;
   padding: 0px;
@@ -557,5 +567,4 @@ a {
   position: relative;
   top: 1px;
 }
-
 </style>

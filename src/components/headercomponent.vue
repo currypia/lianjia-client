@@ -47,10 +47,11 @@ export default {
   data(){
     return{
       // 用户登录状态，已登录为1，未登录为0
-      successLogin:'0'
+      successLogin:1
     }
   },
   mounted(){
+    console.log("successLogin:"+this.successLogin);
     this.successLogin=localStorage.getItem("successLogin");
   },
   methods:{

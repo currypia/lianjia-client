@@ -109,7 +109,7 @@ export default {
       // 登录成功
       this.successLogin=1;
       localStorage.setItem("successLogin",this.successLogin);
-      // console.log("successLogin:"+localStorage.getItem("successLogin"));
+      console.log("setItem后获得successLogin:"+localStorage.getItem("successLogin"));
       this.$router.push({path:"/"});
     },
     // 注册按钮

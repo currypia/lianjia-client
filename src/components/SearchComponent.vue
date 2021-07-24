@@ -7,7 +7,7 @@
                alt="">
         </div>
         <input style="border:0px;outline:none;cursor:pointer;"
-               class="searchside"
+               id="searchside"
                v-model="input"
                placeholder="请输入内容" />
         <div class="rightside">
@@ -57,6 +57,7 @@ export default {
   box-shadow: 3px 3px 6px #000;
   display: flex;
   transition: box-shadow 1s;
+  background-color: white;
 }
 
 .container:hover {
@@ -86,12 +87,15 @@ export default {
   cursor: pointer;
 }
 
-.searchside {
+#searchside {
   width: 480px;
   height: 40px;
-  border: 0px;
+  outline: none; 
 }
-.searchside:focus {
+.container /deep/#searchside{
+    border: 0;
+}
+#searchside:focus {
   border: none;
 }
 .rightside {

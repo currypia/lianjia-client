@@ -6,6 +6,9 @@ import headercomponent from '../components/headercomponent.vue'
 import Exhibition from '../views/Exhibition.vue'
 import businesscenter from '../views/businesscenter.vue'
 import PersonalCenter from '../views/PersonalCenter.vue'
+import areacomponent from '../components/areacomponent.vue'
+import pricecomponent from '../components/pricecomponent.vue'
+import pushcomponent from '../components/pushcomponent.vue'
 
 Vue.use(VueRouter)
 
@@ -39,6 +42,17 @@ const routes = [
     path:'/e',
     name:'Exhibition',
     component:Exhibition,
+    children:[
+      {
+        path:'/price',
+        name:'price',
+        component:pricecomponent
+      },{
+        path:'/area',
+        name:'area',
+        component:areacomponent
+      },
+    ],
     meta:{
       title:"展览中心"
     }
@@ -47,6 +61,13 @@ const routes = [
     path:'/b',
     name:'businesscenter',
     component:businesscenter,
+    children:[
+      {
+        path:'/push',
+        name:'push',
+        component:pushcomponent
+      }
+    ],
     meta:{
       title:"业务中心"
     }
