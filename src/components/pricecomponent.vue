@@ -1,7 +1,6 @@
 <template>
   <div>
-    这是房屋总价组件
-    <sellList></sellList>
+    <!-- <sellList></sellList> -->
   </div>
 </template>
 <script>

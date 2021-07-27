@@ -1,15 +1,15 @@
 <template>
   <div class="bigcontain">
     <div>
-    <el-backtop></el-backtop>
-  </div> 
+      <el-backtop></el-backtop>
+    </div>
     <!-- 导航栏 -->
     <headercomponent> </headercomponent>
     <div class="main">
       <div class="classifiedQuery">
         <div class="position">
           <el-form>
-            <el-form-item label="小区名称：">
+            <el-form-item label="热门地区：">
               <el-checkbox-group v-model="form.xqtype"
                                  @change="handleCheckDatasChange1">
                 <!-- form.xqtype 存储的是label对应的值 -->
@@ -62,26 +62,26 @@
               </ul>
             </div>
           </div>
-          
-            <div class="resultDes">
-              <div class="total fl">共找到<span>30</span>套广州房</div>
-              <div class="clearbutton fr">
-                <a href="/e/">
-                  <span></span>清空条件
-                </a>
-              </div>
+
+          <div class="resultDes">
+            <div class="total fl">共找到<span>30</span>套广州房</div>
+            <div class="clearbutton fr">
+              <a href="/e/">
+                <span></span>清空条件
+              </a>
             </div>
-            <router-view></router-view>
-          
-        <sellList></sellList>
-         
+          </div>
+          <router-view></router-view>
+          <!-- :notice="sellList" -->
+          <sellList></sellList>
+
         </div>
       </div>
       <div></div>
     </div>
     <footercomponent></footercomponent>
   </div>
- 
+
 </template>
 
 <script>
@@ -111,14 +111,14 @@ export default {
       xqcheckboxName: [
         {
           key: 1,
-          label: "1号小区"
+          label: "凤凰城"
         },
         {
           key: 2,
-          label: "2号小区"
+          label: "罗冲围"
         }, {
           key: 3,
-          label: "3号小区"
+          label: "江南大道中"
         },
       ],
       // 面积复选框List
@@ -185,18 +185,22 @@ export default {
         },
       ],
       // 选择的li
-      chooesedliIndex: 0
+      chooesedliIndex: 0,
+
+
     }
   },
-  
-  watch:{
+  created () {
+
+  },
+  watch: {
     // 路由地址监听
-   $route(to, from) {
-      this.$refs.default.style.display='block';
-      if(to.name=="price"||to.name=="area"){
-        this.$refs.default.style.display='none';
-      }
-    }
+    // $route (to, from) {
+    //   this.$refs.default.style.display = 'block';
+    //   if (to.name == "price" || to.name == "area") {
+    //     this.$refs.default.style.display = 'none';
+    //   }
+    // }
   },
   methods: {
     handleCheckDatasChange1 () {
@@ -210,7 +214,8 @@ export default {
     },
     chooesMenu: function (index) {
       this.chooesedliIndex = index;
-    }
+    },
+
   }
 }
 </script>
@@ -320,36 +325,36 @@ li {
   color: black;
   font-weight: 200;
 }
-.resultDes{
+.resultDes {
   height: 55px;
   line-height: 55px;
   display: block;
   border-bottom: 1px solid #f1f1f1;
 }
-.resultDes .total{
+.resultDes .total {
   font-weight: bold;
   font-size: 22px;
   color: black;
 }
-.resultDes .total span{
+.resultDes .total span {
   color: #00ae66;
-  font-family: 'tahoma';
+  font-family: "tahoma";
   margin-left: 5px;
   margin-right: 5px;
 }
-.fl{
+.fl {
   float: left;
 }
-.fr{
+.fr {
   float: right;
 }
-.clearbutton{
+.clearbutton {
   font-size: 12px;
 }
-.clearbutton a{
+.clearbutton a {
   color: #394043;
 }
-.clearbutton span{
+.clearbutton span {
   display: inline-block;
   width: 15px;
   height: 17px;
@@ -357,19 +362,19 @@ li {
   vertical-align: middle;
   margin-right: 5px;
 }
-.sellListContent{
+.sellListContent {
   /* line-height: 1; */
-  font-size:0;
+  font-size: 0;
   margin-bottom: 36px;
 }
-.sellListContent li{
+.sellListContent li {
   position: relative;
   width: 910px;
   height: 209px;
   padding: 35px 0px;
-  border-bottom: 1px solid #f1f1f1; 
+  border-bottom: 1px solid #f1f1f1;
 }
-.sellListContent .info{
+.sellListContent .info {
   float: right;
   width: 640px;
   height: 170px;
@@ -377,27 +382,26 @@ li {
   color: #616669;
   vertical-align: top;
 }
-.sellListContent img{
+.sellListContent img {
   width: 232px;
   height: 174px;
 }
-.sellListContent a
-{
+.sellListContent a {
   width: 232px;
   height: 174px;
   float: left;
 }
-.clear{
+.clear {
   display: block;
 }
-.sellListContent .info .title{
+.sellListContent .info .title {
   height: 22px;
   width: 640px;
   font-weight: bold;
   color: #394043;
   overflow: hidden;
 }
-.sellListContent li .info .title a{
+.sellListContent li .info .title a {
   float: left;
   max-width: 420px;
   height: 22px;
@@ -406,12 +410,12 @@ li {
   color: #394043;
   overflow: hidden;
   white-space: nowrap;
-  text-overflow:ellipsis ;
+  text-overflow: ellipsis;
 }
-.sellListContent li .info .title .tagBlock.goodhouse_tag{
+.sellListContent li .info .title .tagBlock.goodhouse_tag {
   background-color: #d53c3c;
 }
-.sellListContent li .info .title .tagBlock{
+.sellListContent li .info .title .tagBlock {
   float: left;
   margin-left: 5px;
   padding: 0 5px;
@@ -423,18 +427,18 @@ li {
   height: 27px;
   vertical-align: top;
 }
-.sellListContent .info .flood{
+.sellListContent .info .flood {
   margin-top: 18px;
 }
-.sellListContent .info .flood .positionInfo{
+.sellListContent .info .flood .positionInfo {
   width: 80%;
   height: 15px;
   display: inline-block;
   overflow: hidden;
   white-space: nowrap;
-  text-overflow:ellipsis ;
+  text-overflow: ellipsis;
 }
-.sellListContent .info .flood .positionInfo .positionIcon{
+.sellListContent .info .flood .positionInfo .positionIcon {
   float: left;
   width: 13px;
   height: 15px;
@@ -442,23 +446,23 @@ li {
   vertical-align: -1px;
   margin-right: 12px;
 }
-.sellListContent  .info .flood .positionInfo a{
+.sellListContent .info .flood .positionInfo a {
   color: #394043;
 }
-.sellListContent  .info .address{
+.sellListContent .info .address {
   margin-top: 20px;
 }
-.sellListContent  .info .address .houseInfo{
+.sellListContent .info .address .houseInfo {
   width: 510px;
   height: 15px;
   display: inline-block;
   overflow: hidden;
   vertical-align: top;
-  text-overflow:ellipsis ;
+  text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.sellListContent  .info .address .houseInfo .houseIcon{
+.sellListContent .info .address .houseInfo .houseIcon {
   float: left;
   width: 14px;
   height: 14px;
@@ -468,10 +472,10 @@ li {
   vertical-align: -1px;
   margin-right: 12px;
 }
-.sellListContent  .info .followInfo{
+.sellListContent .info .followInfo {
   margin-top: 18px;
 }
-.sellListContent  .info .followInfo .starIcon{
+.sellListContent .info .followInfo .starIcon {
   float: left;
   width: 15px;
   height: 14px;
@@ -481,41 +485,40 @@ li {
   vertical-align: -1px;
   margin-right: 12px;
 }
-.sellListContent  .info .tag{
+.sellListContent .info .tag {
   margin-top: 18px;
 }
-.sellListContent  .info .tag .haskey{
+.sellListContent .info .tag .haskey {
   width: 70px;
   height: 30px;
   background: #e1f5ed;
-  color: #33BE85;
+  color: #33be85;
   display: inline-block;
   font-size: 12px;
   line-height: 30px;
   padding: 0 11px;
   text-align: center;
 }
-.sellListContent  .info .priceInfo{
+.sellListContent .info .priceInfo {
   position: absolute;
   right: 0;
   top: 30%;
 }
-.sellListContent  .info .priceInfo .totalPrice{
+.sellListContent .info .priceInfo .totalPrice {
   color: #db4c3f;
   font-size: 14px;
-
 }
-.sellListContent  .info .priceInfo .totalPrice span{
+.sellListContent .info .priceInfo .totalPrice span {
   font-weight: bold;
   font-size: 26px;
-  font-family: 'tahoma';
+  font-family: "tahoma";
 }
-.listButtonContainer{
+.listButtonContainer {
   position: absolute;
   width: 40px;
   height: 23px;
-  top:33px;
-  right:0px;
+  top: 33px;
+  right: 0px;
   line-height: 23px;
   border: 1px solid #ddd;
   border-radius: 2px;
@@ -524,5 +527,4 @@ li {
   cursor: pointer;
   text-align: center;
 }
-
 </style>

@@ -9,6 +9,8 @@ import PersonalCenter from '../views/PersonalCenter.vue'
 import areacomponent from '../components/areacomponent.vue'
 import pricecomponent from '../components/pricecomponent.vue'
 import pushcomponent from '../components/pushcomponent.vue'
+import singlexhibition from '../views/singlexhibition.vue'
+
 
 Vue.use(VueRouter)
 
@@ -79,14 +81,31 @@ const routes = [
     meta:{
       title:"个人中心"
     }
+  },
+  {
+    path:'/single',
+    name:"singlexhibition",
+    component:singlexhibition,
+    meta:{
+      title:"房子展示"
+    }
   }
   
 ]
 
 const router = new VueRouter({
   mode: 'history',
-  base: process.env.BASE_URL,
+  // base: process.env.BASE_URL,
   routes
 })
+
+router.beforeEach((to, from, next) => {
+  /* 路由发生变化修改页面title */
+  if (to.meta.title) {
+      document.title = to.meta.title
+  }
+  next()
+})
+
 
 export default router

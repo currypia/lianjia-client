@@ -124,7 +124,7 @@ export default {
     }
   },
   mounted: function () {
-
+    
     $(function () {
       // const _this = this;
       $(".input input").val('');

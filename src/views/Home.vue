@@ -49,7 +49,7 @@
         <div class="name"></div>
         <div class="message">
           <p>好房源那么多，我们为你精选，丛家会越来越懂你
-            <a href="#">更多广州二手房</a>
+            <a href="/e">更多广州二手房</a>
           </p>
         </div>
         <div class="ershoufangli">
@@ -127,7 +127,7 @@ export default {
   data () {
     return {
       // 用户登录状态，已登录为1，未登录为0
-      successLogin: 1,
+      // successLogin: 0,
       //在售房产数量
       onsalehouse: 15687,
       //二手房信息
@@ -193,12 +193,10 @@ export default {
     };
   },
   mounted () {
-    if(localStorage.getItem("successLogin")==null){
-      this.successLogin=1;
-    }else{
-      this.successLogin = localStorage.getItem("successLogin");
+    console.log("在Home中得到的successLogin：" + localStorage.getItem("successLogin"));
+    if (localStorage.getItem("successLogin") == null) {
+      localStorage.setItem("successLogin", 0);
     }
-    console.log("在Home中得到的successLogin：" + this.successLogin);
   },
   methods: {
     handleSelect (key, keyPath) {
@@ -566,5 +564,17 @@ a {
   font-family: tahoma;
   position: relative;
   top: 1px;
+}
+.el-menu /deep/.el-submenu_title:hover {
+  background-color: rgba(255,  255,  255, 0.226) portant;
+}
+.el-menu /deep/.el-menu-item:hover  {
+  background-color: rgba(60, 94, 128, 0.226) !important;
+}
+.el-menu /deep/.el-submenu_title:focus {
+  background-color: rgba(255,  255,  255,  0) portant;
+}
+.el-menu /deep/.el-menu-item:focus  {
+  background-color: rgba(194, 62, 62, 0.226) !important;
 }
 </style>
