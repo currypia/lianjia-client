@@ -10,7 +10,16 @@ import areacomponent from '../components/areacomponent.vue'
 import pricecomponent from '../components/pricecomponent.vue'
 import pushcomponent from '../components/pushcomponent.vue'
 import singlexhibition from '../views/singlexhibition.vue'
-
+import sidebar from '../views/backstage/sidebar.vue' 
+import Header from '../components/backstage/Header.vue'
+import Likestar from '../views/backstage/Likestar.vue'
+import HouseStatus from '../views/backstage/HouseStatus.vue'
+import ChanceHouse from '../views/backstage/ChanceHouse.vue'
+import SeeSell from '../views/backstage/SeeSell.vue'
+import admin from '../views/backstage/admin.vue'
+import notice from '../views/backstage/notice.vue'
+import insertnotice from '../components/backstage/admin/insertnotice.vue'
+import Setnotice from '../components/backstage/admin/Setnotice.vue'
 
 Vue.use(VueRouter)
 
@@ -88,6 +97,99 @@ const routes = [
     component:singlexhibition,
     meta:{
       title:"房子展示"
+    }
+  },
+  {
+    path:'/sidebar',
+    name:"sidebar",
+    component:sidebar,
+    meta:{
+      title:"后台中心"
+    },
+    children:[
+      {
+        path:'/Likestar',
+        name:"Likestar",
+        component:Likestar,
+        meta:{
+          title:"查看收藏"
+        }
+      },
+      {
+        path:'/HouseStatus',
+        name:"HouseStatus",
+        component:HouseStatus,
+        meta:{
+          title:"房子状态"
+        }
+      },
+      {
+        path:'/ChanceHouse',
+        name:"ChanceHouse",
+        component:ChanceHouse,
+        meta:{
+          title:"查看房子"
+        }
+      },
+      {
+        path:'/SeeSell',
+        name:"SeeSell",
+        component:SeeSell,
+        meta:{
+          title:"查看订单"
+        }
+      },
+      {
+        path:'/admin',
+        name:"admin",
+        component:admin,
+        meta:{
+          title:"管理员功能"
+        }
+      },
+      {
+        path:'/notice',
+        name:"notice",
+        component:notice,
+        meta:{
+          title:"通知管理"
+        }
+      },
+    ]
+  },
+
+  {
+    path:'/Header',
+    name:"Header",
+    component:Header,
+    meta:{
+      title:"后台头部"
+    }
+  },
+  {
+    path:'/insertnotice',
+    name:"insertnotice",
+    component:insertnotice,
+    meta:{
+      title:"插入通知"
+    }
+  },
+  {
+    path:'/Setnotice',
+    name:"Setnotice",
+    component:Setnotice,
+    meta:{
+      title:"设置通知"
+    }
+  },
+  
+
+  {
+    path:'/p',
+    name:"PersonalCenter",
+    component:PersonalCenter,
+    meta:{
+      title:"个人中心"
     }
   }
   
