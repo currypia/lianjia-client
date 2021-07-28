@@ -13,12 +13,13 @@
       </el-menu-item>
       <el-menu-item index="/e">展览中心</el-menu-item>
       <el-menu-item index="/b">业务中心</el-menu-item>
+      <el-menu-item index="/sidebar">后台中心</el-menu-item>
       <el-menu-item index="/p"
-                    v-if="successLogin==1">个人中心</el-menu-item>
+                    v-if="userId!==0">个人中心</el-menu-item>
       <el-menu-item index="/l"
-                    v-if="successLogin==0">登录</el-menu-item>
+                    v-if="userId==0">登录</el-menu-item>
       <el-menu-item @click="signout"
-                    v-if="successLogin==1">登出</el-menu-item>
+                    v-if="userId!==0">登出</el-menu-item>
     </el-menu>
     <div class="header-warp">
       <div class="wrap-ico"></div>
@@ -47,18 +48,18 @@ export default {
   data () {
     return {
       // 用户登录状态，已登录为1，未登录为0
-      successLogin: 0
+      userId: 0
     }
   },
   mounted () {
-    console.log("在header中的successLogin:" + this.successLogin);
-    this.successLogin = localStorage.getItem("successLogin");
+    this.userId = sessionStorage.getItem("userId");
+    // console.log("在header中的userId:" + this.userId);
   },
   methods: {
     // 退出登录
     signout () {
-      localStorage.setItem("successLogin", 0);
-      this.successLogin = 0;
+      sessionStorage.setItem("userId", 0);
+      this.userId = 0;
     }
   }
 }

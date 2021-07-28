@@ -22,7 +22,7 @@ Vue.prototype.$qs=qs;
 
 // 导入 自定义全局 css  
 import './assets/css/global.css'
-
+axios.defaults.timeout=30000;
 
 //使用
 Vue.use(ElementUI)

@@ -193,9 +193,9 @@ export default {
     };
   },
   mounted () {
-    console.log("在Home中得到的successLogin：" + localStorage.getItem("successLogin"));
-    if (localStorage.getItem("successLogin") == null) {
-      localStorage.setItem("successLogin", 0);
+    console.log("在Home中得到的userId：" + sessionStorage.getItem("userId"));
+    if (sessionStorage.getItem("userId") == null) {
+      sessionStorage.setItem("userId", 0);
     }
   },
   methods: {

@@ -111,8 +111,10 @@ export default {
     },
     // 实时查询
     async getonlineList () {
-      const { data: res } = await this.$http.post('..?' + this.paramss);
+      // const { data: res } = await this.$http.get('selectByCondtion?location=' + this.paramss.location+"&minarea="+this.paramss.minarea);
+      const {data:res} =await this.$http.get('selectByCondtion?location='+this.paramss.location+'&minarea='+this.paramss.minarea+'&maxarea='+this.paramss.maxarea+'&minprice='+this.paramss.minprice+'&maxprice='+this.paramss.maxprice);
       this.sellList = res;
+      console.log('实时查询：'+this.sellList);
     },
     handleCurrentChange (val) {
       this.page = val;
@@ -147,7 +149,7 @@ export default {
     selectedItem: {
       handler (newValue, oldValue) {
         this.paramss = newValue;
-        // this.getonlineList();
+        this.getonlineList();
         console.log("监听成功,val:" + JSON.stringify(this.paramss));
       }, deep: true
     }

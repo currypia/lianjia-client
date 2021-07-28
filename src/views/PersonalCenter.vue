@@ -12,9 +12,15 @@
           <el-form ref="form"
                    :model="form"
                    label-width="80px">
-            <el-form-item label="修改密码">
-              <el-input v-model="form.name"></el-input>
+            <el-form-item label="修改账号">
+              <el-input v-model="form.account"></el-input>
             </el-form-item>
+            <el-form-item label="修改密码">
+              <el-input v-model="form.password"></el-input>
+            </el-form-item>
+            <el-button type="primary"
+                       @click="onSubmit"
+                       id="submitbutton">确定修改</el-button>
           </el-form>
         </div>
       </div>
@@ -26,19 +32,39 @@
 <script>
 import headercomponent from '../components/headercomponent.vue'
 import footercomponent from '../components/footercomponent.vue'
-
+import $qs from 'qs'
 export default {
   components: {
     headercomponent,
     footercomponent
   },
-  data(){
-    return{
-      form:[
-        {
-          name:''
-        }
-      ]
+  data () {
+    return {
+      form:
+      {
+        account: null,
+        password: null,
+        userid: null
+      }
+
+    }
+  },
+  methods: {
+    onSubmit () {
+      this.form.userid = sessionStorage.getItem('userId');
+      if (this.form.account == null || this.form.account == null) {
+        return alert("请完善修改的信息")
+      }
+      this.uploadform();
+    },
+    async uploadform () {
+      const { data: res } = await this.$http.post('updatePerson', $qs.stringify(this.form))
+      console.log("uploadform:" + res);
+      if (res !== 1) {
+        return alert("修改信息失败");
+      }
+      return alert("修改信息成功");
+
     }
   }
 }
@@ -84,5 +110,13 @@ li {
 .modifyside {
   margin: auto;
   width: 80%;
+}
+#submitbutton {
+  margin-top: 20px;
+}
+#submitbutton {
+  float: right;
+  background-color: #00ae66;
+  border: #3b9e75;
 }
 </style>

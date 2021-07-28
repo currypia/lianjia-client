@@ -24,17 +24,20 @@
       <div ref="default">
         <el-table :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
                   style="width: 100%">
-          <el-table-column label="发布日期"
-                           prop="date">
-          </el-table-column>
           <el-table-column label="发布标题"
-                           prop="name">
+                           prop="title">
           </el-table-column>
           <el-table-column label="发布价格"
                            prop="price">
           </el-table-column>
+          <el-table-column label="所在区域"
+                           prop="location">
+          </el-table-column>
           <el-table-column label="经理名称"
-                           prop="manageName">
+                           prop="managerid">
+          </el-table-column>
+          <el-table-column label="出售状态"
+                           prop="status">
           </el-table-column>
           <el-table-column align="right">
             <template slot="header"
@@ -82,15 +85,26 @@ export default {
       ],
       // 选择的li
       chooesedliIndex: 0,
-      tableData: [{
-        date: '2016-05-02',
-        name: '上海滩金沙湾...',
-        price: '175万',
-        manageName: 'curry',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }
+      tableData: [
+        {
+          houseid: 302,
+          title: "4",
+          price: "4",
+          location: "凤凰城",
+          area: "4",
+          managerid: 'curry',
+          sellerid: 7,
+          introduce: "4",
+          floor: "4",
+          orientation: "4",
+          img: "https://javaeeshixun.oss-cn-shenzhen.aliyuncs.com/touxiangimg/4ee2a1e9-da1c-44db-b155-e9e37df12a4f_house1.png",
+          year: "4",
+          status: "未出售",
+          buliddate: null
+        }
       ],
-      search: ''
+      search: '',
+      SellerId: null
     }
   },
   watch: {
@@ -98,13 +112,21 @@ export default {
     $route (to, from) {
       console.log("url:" + to.name);
       this.$refs.default.style.display = 'block';
+      this.getSellerid();
+
       if (to.name == "push") {
         this.$refs.default.style.display = 'none';
       }
     }
   },
-
+  create () {
+    this.getSellerid();
+  },
   methods: {
+    getSellerid () {
+      this.SellerId = sessionStorage.getItem("userId");
+      console.log('SellerId:' + this.SellerId);
+    },
     chooesMenu: function (index) {
       this.chooesedliIndex = index;
     },
@@ -113,7 +135,13 @@ export default {
     },
     handleDelete (index, row) {
       console.log(index, row);
+    },
+    // 获得当前用户发布的房产列表
+    async gethouselist () {
+      const { data: res } = await this.$http.post('selectHouseSellerIdList',)
     }
+
+
   }
 }
 </script>
@@ -129,14 +157,13 @@ li {
   margin: 0;
   padding: 0;
 }
-.contain3{
+/* .contain3 {
   height: 100%;
-  
-}
+} */
 .main {
   width: 1150px;
-  height: 510px;
-  max-height: 700px;
+  height: 800px;
+  max-height: 1100px;
   margin: auto;
   background-color: white;
   position: relative;

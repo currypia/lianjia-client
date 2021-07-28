@@ -119,6 +119,18 @@ export default {
           key: "江南大道中",
           label: "江南大道中"
         },
+        {
+          key:'新塘北',
+          label:'新塘北'
+        },
+        {
+          key:'市桥',
+          label:'市桥'
+        },
+        {
+          key:'江南西',
+          label:'江南西'
+        }
       ],
       // 面积复选框List
       areaSizecheckName: [

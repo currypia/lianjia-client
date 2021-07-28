@@ -156,9 +156,24 @@ export default {
       this.house = res;
       console.log("house:" + this.house);
     },
+    // 添加收藏
+    async addlike(id){
+      const {data:res} =await this.$http.post('insertLike',{
+        buyderId:1,
+        houseid:id
+      });
+    },
+    async cancellike(id){
+      
+    },
     likehouseclick (id) {
       console.log("likehouseclick" + id);
       this.likebtn = !this.likebtn;
+      if(this.likebtn==true){
+        this.addlike(id);
+      }else if(this.likebtn==false){
+
+      }
     }
   }
 }

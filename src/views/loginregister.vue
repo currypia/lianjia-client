@@ -1,7 +1,6 @@
 <template>
   <div class="body">
-    <el-menu 
-             mode="horizontal"
+    <el-menu mode="horizontal"
              router>
       <el-menu-item class="logo"
                     index="/">
@@ -12,7 +11,7 @@
       <div class="box">
         <div class="title">登录</div>
         <div class="input">
-          <label for="name"  >用户名</label>
+          <label for="name">用户名</label>
           <input type="text"
                  name="name"
                  id="name"
@@ -28,7 +27,7 @@
           <span class="spin"></span>
         </div>
         <div class="button login">
-          <button  @click="loginFunction">
+          <button @click="loginFunction">
             <span>登录</span>
             <i class="fa fa-check"></i>
           </button>
@@ -55,7 +54,7 @@
           <input type="password"
                  name="regpass"
                  id="regpass"
-                v-model="Registered.password">
+                 v-model="Registered.password">
           <span class="spin"></span>
         </div>
         <div class="input">
@@ -76,55 +75,103 @@
   </div>
 </template>
 <script>
-import $ from 'jquery'
-
+import $ from 'jquery';
+import $qs from 'qs'
 export default {
-  data(){
-    return{
+  data () {
+    return {
       // 用户输入的账号密码
-      onlineInput:{name:"",password:"",role:"user"},
+      onlineInput: { name: "", password: "", role: "user" },
       // 用户注册的账号密码
-      Registered:{name:"",password:"",reregpass:"",role:"user"},
+      Registered: { name: "", password: "", reregpass: "", role: "user" },
       // 是否登录成功
-      successLogin:0
+      successLogin: 0,
+      //发送登录请求数据
+      loginform: {
+        account: null,
+        password: null
+      },
+      // 注册发送的请求数据
+      registform: {
+        account: null,
+        password: null
+      }
     }
   },
-  methods:{
+  methods: {
     // 登录按钮
-    loginFunction(){
-      this.successLogin=0;
-      if(this.onlineInput.name==""||this.onlineInput.password==""){
+    // loginFunction(){
+    //   this.successLogin=0;
+    //   if(this.onlineInput.name==""||this.onlineInput.password==""){
+    //     return alert("输入的账号和密码不能为空哦！");
+    //   }
+    //   console.log("用户登录的用户名："+this.onlineInput.name);
+    //   console.log("用户登录的密码："+this.onlineInput.password);
+    //   var isExistence=JSON.parse(localStorage.getItem(this.onlineInput.name));
+    //   console.log("isExistence："+isExistence);
+    //   console.log("用过username获得的password:"+isExistence.password);
+    //   if(isExistence==null){
+    //     return alert("您输入的账号不存在！");
+    //   }else if(isExistence.password!=this.onlineInput.password){
+    //     return alert("您输入的密码错误啦！");
+    //   }
+    // 登录成功
+    //   this.successLogin=1;
+    //   localStorage.setItem("successLogin",this.successLogin);
+    //   console.log("setItem后获得successLogin:"+localStorage.getItem("successLogin"));
+    //   this.$router.push({path:"/"});
+    // },
+    loginFunction () {
+      this.successLogin = 0;
+      if (this.onlineInput.name == "" || this.onlineInput.password == "") {
         return alert("输入的账号和密码不能为空哦！");
       }
-      console.log("用户登录的用户名："+this.onlineInput.name);
-      console.log("用户登录的密码："+this.onlineInput.password);
-      var isExistence=JSON.parse(localStorage.getItem(this.onlineInput.name));
-      console.log("isExistence："+isExistence);
-      console.log("用过username获得的password:"+isExistence.password);
-      if(isExistence==null){
-        return alert("您输入的账号不存在！");
-      }else if(isExistence.password!=this.onlineInput.password){
-        return alert("您输入的密码错误啦！");
+      this.loginform.account = this.onlineInput.name;
+      this.loginform.password = this.onlineInput.password;
+      this.login();
+    },
+    async login () {
+      const { data: res } = await this.$http.post('inlogin', $qs.stringify(this.loginform));
+      console.log("login:" + res);
+      if (res == 0) {
+        return alert("登陆失败！");
       }
-      // 登录成功
-      this.successLogin=1;
-      localStorage.setItem("successLogin",this.successLogin);
-      console.log("setItem后获得successLogin:"+localStorage.getItem("successLogin"));
-      this.$router.push({path:"/"});
+      alert("登录成功！");
+      sessionStorage.setItem("userId", res);
+      this.$router.push({ path: '/' });
     },
     // 注册按钮
-    registerFunction(){
-      console.log("用户注册的用户名："+this.Registered.name);
-      console.log("用户注册的密码："+this.Registered.password);
-      if(this.Registered.password!=this.Registered.reregpass){
+    // registerFunction(){
+    //   console.log("用户注册的用户名："+this.Registered.name);
+    //   console.log("用户注册的密码："+this.Registered.password);
+    //   if(this.Registered.password!=this.Registered.reregpass){
+    //     return alert("输入的两次密码不一样！");
+    //   }
+    //   localStorage.setItem(this.Registered.name,JSON.stringify(this.Registered));
+    //   console.log("注册成功的JSON数据："+localStorage.getItem(this.Registered.name));
+    // }
+    registerFunction () {
+      if (this.Registered.password != this.Registered.reregpass) {
         return alert("输入的两次密码不一样！");
       }
-      localStorage.setItem(this.Registered.name,JSON.stringify(this.Registered));
-      console.log("注册成功的JSON数据："+localStorage.getItem(this.Registered.name));
+      this.registform.account = this.Registered.name;
+      this.registform.password = this.Registered.password;
+      console.log("注册："+JSON.stringify(this.registform));
+      this.regist();
+    },
+    async regist () {
+      
+    
+        const { data: res } = await this.$http.post('insertPerson', $qs.stringify(this.registform))
+      
+      if (res == 0) {
+        return alert("注册失败！");
+      }
+      alert("注册成功！");
     }
   },
   mounted: function () {
-    
+
     $(function () {
       // const _this = this;
       $(".input input").val('');
