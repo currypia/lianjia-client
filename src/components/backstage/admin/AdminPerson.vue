@@ -2,28 +2,28 @@
   <div class="bg">
    
     <div class="TheNotice">
-        <div class="list1">购买者</div>
-        <div class="list1">房子id</div>
-        <div class="list1">房产经理</div>
-        <div class="list1">购买时间</div>
-        <div class="list1">购买日期</div>
-        <div class="list1">购买合同</div>
-        <div class="list1">购买状态</div>
+        <div class="list1">姓名</div>
+        <div class="list1">账号</div>
+        <div class="list1">身份</div>
+        <div class="list1">电话</div>
+        <div class="list1">年龄</div>
+        <div class="list1">性别</div>
+        <div class="list1">设置</div>
     </div>
     <div style=" clear:both;"></div>
     <div
       class="TheNotice"
-      v-for="item in SellList.slice(minNum, MaxNum)"
+      v-for="item in PersonList.slice(minNum, MaxNum)"
       :key="item.noticeid"
     >
     
-    <div class="list">{{item.sellerid}}</div>
-    <div  class="list">{{item.houseid}}</div>
-    <div class="list">{{item.managerid}}</div>
-    <div class="list">{{item.builddate}}</div>
-    <div class="list">{{item.contract}}</div>
-    <div class="list">{{item.thestatus}}</div>
-    <el-button class="chance" @click="onSubmit(item.sellid)">查看</el-button>
+    <div class="list">{{item.name}}</div>
+    <div  class="list">{{item.account}}</div>
+    <div class="list">{{item.status}}</div>
+    <div class="list">{{item.phone}}</div>
+    <div class="list">{{item.age}}</div>
+    <div class="list">{{item.sex}}</div>
+    <el-button class="chance" @click="onSubmit(item.userid)">查看</el-button>
     </div>
     <el-pagination
       @size-change="handleSizeChange"
@@ -38,7 +38,32 @@
 
     <el-dialog title="修改信息" :visible.sync="dialogFormVisible">
         
-      
+      <el-form ref="form" :model="Person" label-width="80px">
+          <el-form-item label="头像">
+          <el-image
+            style="width: 100px; height: 100px"
+            :src="Person.img"
+            :fit="fit"></el-image>
+        </el-form-item>
+        <el-form-item label="姓名">
+          <el-input v-model="Person.name"></el-input>
+        </el-form-item>
+        <el-form-item label="账号">
+          <el-input v-model="Person.account"></el-input>
+        </el-form-item>
+        <el-form-item label="密码">
+          <el-input v-model="Person.password"></el-input>
+        </el-form-item>
+        <el-form-item label="手机">
+          <el-input v-model="Person.phone"></el-input>
+        </el-form-item>
+        <el-form-item label="状态">
+          <el-input v-model="Person.status"></el-input>
+        </el-form-item>
+        <el-form-item label="性别">
+          <el-input v-model="Person.sex"></el-input>
+        </el-form-item>
+      </el-form>
 
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
@@ -53,27 +78,24 @@
 
 
 <script>
-import $qs from 'qs'
 export default {
-  name: "SeelSell",
+  name: "AdminPerson",
   data() {
     return {
       // 用户登录状态，已登录为1，未登录为0
       successLogin: 1,
-      buyderId:1,
-      SellList:[],
+      PersonList:[],
       num: 0, //总条数
       minNum: 0,//最小
       MaxNum: 0,//最大
       TheitemNum: 4,//分页条数
       dialogFormVisible: false,
-      Sell:{},
+      Person:{},
     };
   },
     async created() {
-        var buyderId=1
-        const res = await  this.$http.post("selectSellbuyderId?buyderId="+this.buyderId)        
-        this.SellList=res.data;
+        const res = await  this.$http.get("personList")        
+        this.PersonList=res.data;
         console.log(res.data)
         this.Noticelist = res.data;
         this.num = this.Noticelist.length;
@@ -83,13 +105,13 @@ export default {
   methods: {
     // 提交通知
     async SubmitChance(){
-      this.dialogFormVisible = false;
+
     },
    async onSubmit(id) {
        console.log(`当前内容: ${id}`);
        for (var i=0;i<this.num;i++){
-            if(this.SellList[i].sellid==id){
-                this.Sell=this.SellList[i];
+            if(this.PersonList[i].userid==id){
+                this.Person=this.PersonList[i];
                 // console.log(Person.name);
             }
         }
