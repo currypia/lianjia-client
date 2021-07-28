@@ -10,36 +10,36 @@
         <div class="position">
           <el-form>
             <el-form-item label="热门地区：">
-              <el-checkbox-group v-model="form.xqtype"
-                                 @change="handleCheckDatasChange1">
+              <el-radio-group v-model="form.xqtype"
+                              @change="handleCheckDatasChange1">
                 <!-- form.xqtype 存储的是label对应的值 -->
-                <el-checkbox v-for="item in xqcheckboxName"
-                             :key="item.key"
-                             :label="item.key"
-                             name="xqname">{{item.label}}</el-checkbox>
-              </el-checkbox-group>
+                <el-radio v-for="item in xqcheckboxName"
+                          :key="item.index"
+                          :label="item.key"
+                          name="xqname">{{item.label}}</el-radio>
+              </el-radio-group>
             </el-form-item>
             <el-form-item label="面积大小：">
-              <el-checkbox-group v-model="form.areaSize"
-                                 @change="handleCheckDatasChange2">
+              <el-radio-group v-model="form.areaSize"
+                              @change="handleCheckDatasChange2">
                 <!-- v-model存储的是label对应的值 -->
-                <el-checkbox v-for="item in areaSizecheckName"
-                             :key="item.key"
-                             :label="item.key"
-                             name="areaSize">{{item.label}}</el-checkbox>
+                <el-radio v-for="item in areaSizecheckName"
+                          :key="item.index"
+                          :label="item.key"
+                          name="areaSize">{{item.label}}</el-radio>
 
-              </el-checkbox-group>
+              </el-radio-group>
             </el-form-item>
             <el-form-item label="售价：">
-              <el-checkbox-group v-model="form.price"
-                                 @change="handleCheckDatasChange3">
+              <el-radio-group v-model="form.price"
+                              @change="handleCheckDatasChange3">
                 <!-- v-model存储的是label对应的值 -->
-                <el-checkbox v-for="item in pricecheckName"
-                             :key="item.key"
-                             :label="item.key"
-                             name="areaSize">{{item.label}}</el-checkbox>
+                <el-radio v-for="item in pricecheckName"
+                          :key="item.index"
+                          :label="item.key"
+                          name="price">{{item.label}}</el-radio>
 
-              </el-checkbox-group>
+              </el-radio-group>
             </el-form-item>
           </el-form>
         </div>
@@ -72,8 +72,7 @@
             </div>
           </div>
           <router-view></router-view>
-          <!-- :notice="sellList" -->
-          <sellList></sellList>
+          <sellList :selectedItem="selectedItem"></sellList>
 
         </div>
       </div>
@@ -110,63 +109,63 @@ export default {
       // 小区复选框List
       xqcheckboxName: [
         {
-          key: 1,
+          key: "凤凰城",
           label: "凤凰城"
         },
         {
-          key: 2,
+          key: "罗冲围",
           label: "罗冲围"
         }, {
-          key: 3,
+          key: "江南大道中",
           label: "江南大道中"
         },
       ],
       // 面积复选框List
       areaSizecheckName: [
         {
-          key: 1,
+          key: { minarea: '0', maxarea: '40' },
           label: "40㎡以下"
         },
         {
-          key: 2,
+          key: { minarea: '40', maxarea: '60' },
           label: "40-60㎡"
         }, {
-          key: 3,
+          key: { minarea: '60', maxarea: '80' },
           label: "60-80㎡"
         },
         {
-          key: 4,
+          key: { minarea: '80', maxarea: '100' },
           label: "80-100㎡"
         }, {
-          key: 5,
+          key: { minarea: '100', maxarea: '150' },
           label: "100-150㎡"
         }, {
-          key: 6,
+          key: { minarea: '150', maxarea: '200' },
           label: "150-200㎡"
         },
       ],
       // 售价复选框List
       pricecheckName: [
         {
-          key: 1,
+          key: { minprice: '0', maxprice: '50' },
           label: "50万以下"
         },
         {
-          key: 2,
+          key: { minprice: '50', maxprice: '80' },
           label: "50-80万"
         },
         {
-          key: 3,
+          key: { minprice: '80', maxprice: '100' },
           label: "80-100万"
         },
         {
-          key: 4,
+          key: { minprice: '100', maxprice: '150' },
           label: "100-150万"
         }, {
-          key: 5,
+          key: { minprice: '150', maxprice: '200' },
           label: "150-200万"
         }, {
-          key: 6,
+          key: { minprice: '200', maxprice: '300' },
           label: "200-300万"
         },
       ],
@@ -186,7 +185,13 @@ export default {
       ],
       // 选择的li
       chooesedliIndex: 0,
-
+      selectedItem: {
+        location: null,
+        minarea: null,
+        maxarea: null,
+        minprice: null,
+        maxprice: null
+      }
 
     }
   },
@@ -194,28 +199,36 @@ export default {
 
   },
   watch: {
-    // 路由地址监听
-    // $route (to, from) {
-    //   this.$refs.default.style.display = 'block';
-    //   if (to.name == "price" || to.name == "area") {
-    //     this.$refs.default.style.display = 'none';
-    //   }
-    // }
   },
   methods: {
     handleCheckDatasChange1 () {
+      this.selectedItem.location = null,
+        this.selectedItem.location = this.form.xqtype;
       console.log("选中的小区名称" + this.form.xqtype);
+      console.log("selectedItem:" + JSON.stringify(this.selectedItem));
     },
     handleCheckDatasChange2 () {
-      console.log("选中的面积大小" + this.form.areaSize);
+      this.selectedItem.minarea = null,
+        this.selectedItem.maxarea = null,
+        this.selectedItem.minarea = this.form.areaSize.minarea;
+      this.selectedItem.maxarea = this.form.areaSize.maxarea;
+
+      console.log("面积,最小：" + this.selectedItem.minarea + ";最大：" + this.selectedItem.maxarea);
+      console.log("selectedItem:" + JSON.stringify(this.selectedItem));
+
     },
     handleCheckDatasChange3 () {
-      console.log("选中的小区名称" + this.form.price);
+      this.selectedItem.minprice = null,
+        this.selectedItem.maxprice = null,
+        this.selectedItem.minprice = this.form.price.minprice;
+      this.selectedItem.maxprice = this.form.price.maxprice;
+      console.log("价格,最小：" + this.selectedItem.minprice + ";最大：" + this.selectedItem.maxprice);
+      console.log("selectedItem:" + JSON.stringify(this.selectedItem));
     },
+    
     chooesMenu: function (index) {
       this.chooesedliIndex = index;
     },
-
   }
 }
 </script>
@@ -236,20 +249,20 @@ li {
   .main
   .classifiedQuery
   .position
-  /deep/.el-checkbox__input.is-checked
-  .el-checkbox__inner,
-.el-checkbox__input.is-indeterminate .el-checkbox__inner {
+  /deep/.el-radio__input.is-checked
+  .el-radio__inner,
+.el-radio__input.is-indeterminate .el-radio__inner {
   border-color: rgb(74, 139, 74);
   background-color: rgb(74, 139, 74);
 }
 /* 设置鼠标悬浮时边框的颜色以及复选框恢复默认边框颜色 */
-.bigcontain .main .classifiedQuery .position /deep/.el-checkbox__inner:hover,
+.bigcontain .main .classifiedQuery .position /deep/.el-radio__inner:hover,
 .bigcontain
   .main
   .classifiedQuery
   .position
-  /deep/.el-checkbox__input.is-focus
-  .el-checkbox__inner {
+  /deep/.el-radio__input.is-focus
+  .el-radio__inner {
   border-color: rgb(74, 139, 74);
 }
 /* 设置选中后的文字颜色 */
@@ -257,8 +270,8 @@ li {
   .main
   .classifiedQuery
   .position
-  /deep/.el-checkbox__input.is-checked
-  + .el-checkbox__label {
+  /deep/.el-radio__input.is-checked
+  + .el-cradio__label {
   color: rgb(74, 139, 74);
 }
 .main {

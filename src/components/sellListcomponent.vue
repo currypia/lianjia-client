@@ -67,14 +67,22 @@
 <script>
 export default {
   name: "sellList",
-  props: ['notice'],
+  props: ['selectedItem'],
   data () {
     return {
       page: 1,
       cout: 5,
       sellList: [],
+      paramss: {
+        location: null,
+        minarea: null,
+        maxarea: null,
+        minprice: null,
+        maxprice: null
+      }
     }
   },
+
   created () {
     this.morenDisplay = 1;
     this.getHouseList();
@@ -101,7 +109,11 @@ export default {
       this.sellList = res;
       console.log("价格从小到大排序的sellList:" + this.sellList);
     },
-
+    // 实时查询
+    async getonlineList () {
+      const { data: res } = await this.$http.post('..?' + this.paramss);
+      this.sellList = res;
+    },
     handleCurrentChange (val) {
       this.page = val;
       this.getHouseList();
@@ -111,14 +123,13 @@ export default {
       console.log("id:" + id);
       // 路由跳转+id
       this.$router.push({ path: '/single?houseid=' + id });
-      // this.$router.push({path:"/single",params:{houseid:id}})
     }
   },
 
   watch: {
     // 路由地址监听
     $route (to, from) {
-      console.log("to.name:"+to.name);
+      console.log("to.name:" + to.name);
       if (to.name == "Exhibition") {
         this.getHouseList();
       }
@@ -131,6 +142,14 @@ export default {
         // this.$refs.moren.style.display = 'none';
         this.getAscArea();
       }
+    },
+
+    selectedItem: {
+      handler (newValue, oldValue) {
+        this.paramss = newValue;
+        // this.getonlineList();
+        console.log("监听成功,val:" + JSON.stringify(this.paramss));
+      }, deep: true
     }
   },
 }

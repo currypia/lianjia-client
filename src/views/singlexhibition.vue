@@ -14,7 +14,10 @@
             <div class="btnContainer">
               <div class="action">
                 <button id="follow"
-                        class="followbtn">关注房源</button>
+                        class="followbtn"
+                        ref="likebutton"
+                        @click="likehouseclick(house.houseid)"
+                        v-bind:class="{likebutton:likebtn}">关注房源</button>
                 <span id="favCount"
                       class="count">24</span>人关注
               </div>
@@ -139,7 +142,8 @@ export default {
           imgurl: require('../assets/images/nhouse3.jpg')
         },
       ],
-      houseId: 0
+      houseId: 0,
+      likebtn: false
     }
   },
   created () {
@@ -151,6 +155,10 @@ export default {
       const { data: res } = await this.$http.get('selectHouseById?houseid=' + this.$route.query.houseid);
       this.house = res;
       console.log("house:" + this.house);
+    },
+    likehouseclick (id) {
+      console.log("likehouseclick" + id);
+      this.likebtn = !this.likebtn;
     }
   }
 }
@@ -235,13 +243,16 @@ a {
   line-height: 1.2;
   height: 16px;
 }
-
+/* 点击改变button颜色 */
+.sellDetailHeader .title-wrapper .content .btnContainer .likebutton {
+  background-color: #d1d5db;
+}
 .sellDetailHeader .title-wrapper .content .btnContainer button {
   display: block;
   width: 113px;
   height: 45px;
   margin-bottom: 4px;
-  background-color: #ffffff;
+  background-color: #fff;
   border-radius: 2px;
   color: #394043;
   font-size: 14px;
@@ -421,5 +432,11 @@ a {
 .imageUrl .block img {
   width: 100%;
   height: 100%;
+}
+
+.sellDetailHeader .title-wrapper .content .btnContainer .likebutton {
+  box-shadow: rgb(255 255 255 / 5%) 0 -5px 0px 0px inset,
+    rgb(255 255 255 / 2%) 0 -5px 0px -5px inset,
+    rgb(9 9 9 / 50%) 0 -5px -5px -5px;
 }
 </style>

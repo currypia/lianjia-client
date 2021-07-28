@@ -20,11 +20,16 @@ import admin from '../views/backstage/admin.vue'
 import notice from '../views/backstage/notice.vue'
 import insertnotice from '../components/backstage/admin/insertnotice.vue'
 import Setnotice from '../components/backstage/admin/Setnotice.vue'
-
+import test from '../views/test.vue'
 Vue.use(VueRouter)
 
 
 const routes = [
+  {
+    path:'/test',
+    name:'test',
+    component:test
+  },
   {
     path: '/',
     name: 'Home',
