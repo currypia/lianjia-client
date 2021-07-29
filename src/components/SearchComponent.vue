@@ -3,13 +3,12 @@
     <div id="search">
       <div class="container">
         <div class="leftside">
-          <img src="../assets/images/search.png"
-               alt="">
+          <img src="../assets/images/search.png" @click='search'>
         </div>
         <input style="border:0px;outline:none;cursor:pointer;"
                id="searchside"
                v-model="input"
-               placeholder="请输入内容" />
+               placeholder="请输入搜索内容" />
         <div class="rightside">
           <img src="../assets/images/talk.png"
                alt="">
@@ -29,6 +28,9 @@ export default {
     }
   },
   methods: {
+    search(){
+      console.log("搜索内容："+this.input);
+    }
 
   }
 }

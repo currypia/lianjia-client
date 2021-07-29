@@ -79,7 +79,44 @@ export default {
         maxarea: null,
         minprice: null,
         maxprice: null
+      },
+      // 单个字段查询
+      oneData: {
+        oneLocation: {
+          location: null,
+        },
+        onearea: {
+          minarea: null,
+          maxarea: null,
+        },
+        oneprice: {
+          minprice: null,
+          maxprice: null
+        }
+      },
+      // 两个字段查询
+      twoData: {
+        // location&area
+        twolocationarea: {
+          location: null,
+          minarea: null,
+          maxarea: null,
+        },
+        // location&price
+        twolocationprice: {
+          location: null,
+          minprice: null,
+          maxprice: null
+        },
+        // area&price
+        twoareaprice: {
+          minarea: null,
+          maxarea: null,
+          minprice: null,
+          maxprice: null
+        }
       }
+      // 三个字段查询
     }
   },
 
@@ -101,7 +138,7 @@ export default {
     async getAscPrice () {
       const { data: res } = await this.$http.get("selectHouseOrderByPriceASC");
       this.sellList = res;
-      console.log("价格从小到大排序的sellList:" + this.sellList);
+      console.log("价格从小到大排序的sellList:" + JSON.stringify(this.sellList));
     },
     // 获得面积从小到大排序
     async getAscArea () {
@@ -112,9 +149,51 @@ export default {
     // 实时查询
     async getonlineList () {
       // const { data: res } = await this.$http.get('selectByCondtion?location=' + this.paramss.location+"&minarea="+this.paramss.minarea);
-      const {data:res} =await this.$http.get('selectByCondtion?location='+this.paramss.location+'&minarea='+this.paramss.minarea+'&maxarea='+this.paramss.maxarea+'&minprice='+this.paramss.minprice+'&maxprice='+this.paramss.maxprice);
-      this.sellList = res;
-      console.log('实时查询：'+this.sellList);
+      if (this.paramss.location !== null && this.paramss.minarea == null && this.paramss.minprice == null) {
+        this.oneData.oneLocation.location = this.paramss.location;
+        const { data: res } = await this.$http.get('selectByCondtion?location=' + this.oneData.oneLocation.location);
+        this.sellList = res;
+      }
+      if (this.paramss.location == null && this.paramss.minarea !== null && this.paramss.minprice == null) {
+        this.oneData.onearea.minarea = this.paramss.minarea;
+        this.oneData.onearea.maxarea = this.paramss.maxarea;
+        const { data: res } = await this.$http.get('selectByCondtion?minarea=' + this.oneData.onearea.minarea + '&maxarea=' + this.oneData.onearea.maxarea);
+        this.sellList = res;
+      }
+      if (this.paramss.location == null && this.paramss.minarea == null && this.paramss.minprice !== null) {
+        this.oneData.oneprice.minprice = this.paramss.minprice;
+        this.oneData.oneprice.maxprice = this.paramss.maxprice;
+        const { data: res } = await this.$http.get('selectByCondtion?minprice=' + this.oneData.oneprice.minprice + '&maxprice=' + this.oneData.oneprice.maxprice);
+        this.sellList = res;
+      }
+      if (this.paramss.location !== null && this.paramss.minarea !== null && this.paramss.minprice == null) {
+        this.twoData.twolocationarea.location = this.paramss.location;
+        this.twoData.twolocationarea.minarea = this.paramss.minarea;
+        this.twoData.twolocationarea.maxarea = this.paramss.maxarea;
+        const { data: res } = await this.$http.get('selectByCondtion?location=' + this.twoData.twolocationarea.location + '&minarea=' + this.twoData.twolocationarea.minarea + '&maxarea=' + this.twoData.twolocationarea.maxarea);
+        this.sellList = res;
+      }
+      if (this.paramss.location !== null && this.paramss.minarea == null && this.paramss.minprice !== null) {
+        this.twoData.twolocationprice.location = this.paramss.location;
+        this.twoData.twolocationprice.minprice = this.paramss.minprice;
+        this.twoData.twolocationprice.maxprice = this.paramss.maxprice;
+        const { data: res } = await this.$http.get('selectByCondtion?location=' + this.twoData.twolocationprice.location + '&minprice=' + this.twoData.twolocationprice.minprice + '&maxprice=' + this.twoData.twolocationprice.maxprice);
+        this.sellList = res;
+      }
+      if (this.paramss.location == null && this.paramss.minarea !== null && this.paramss.minprice !== null) {
+        this.twoData.twoareaprice.minarea = this.paramss.minarea;
+        this.twoData.twoareaprice.maxarea = this.paramss.maxarea;
+        this.twoData.twoareaprice.minprice = this.paramss.minprice;
+        this.twoData.twoareaprice.maxprice = this.paramss.maxprice;
+        const { data: res } = await this.$http.get('selectByCondtion?' + 'minprice=' + this.twoData.twoareaprice.minprice + '&maxprice=' + this.twoData.twoareaprice.maxprice + '&minarea=' + this.twoData.twoareaprice.minarea + '&maxarea=' + this.twoData.twoareaprice.maxarea);
+        this.sellList = res;
+      }
+      if (this.paramss.location !== null && this.paramss.minarea !== null && this.paramss.minprice !== null) {
+        console.log("触发成功")
+        const { data: res } = await this.$http.get('selectByCondtion?location=' + this.paramss.location + '&minarea=' + this.paramss.minarea + '&maxarea=' + this.paramss.maxarea + '&minprice=' + this.paramss.minprice + '&maxprice=' + this.paramss.maxprice);
+        this.sellList = res;
+      }
+      console.log('实时查询：' + this.sellList);
     },
     handleCurrentChange (val) {
       this.page = val;

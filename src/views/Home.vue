@@ -118,6 +118,7 @@
 import Search from "@/components/SearchComponent.vue"
 import footerComponent from "@/components/footercomponent.vue"
 import headercomponent from "@/components/headercomponent.vue"
+import $qs from 'qs'
 export default {
   components: {
     Search,
@@ -189,18 +190,36 @@ export default {
           title: '天基叠彩领峰',
           price: '12000',
         },
-      ]
+      ],
+       // 查询status
+      selectstatus:{
+        id:null
+      }
     };
   },
   mounted () {
     console.log("在Home中得到的userId：" + sessionStorage.getItem("userId"));
+    
     if (sessionStorage.getItem("userId") == null) {
       sessionStorage.setItem("userId", 0);
     }
+    this.selectstatus.id=sessionStorage.getItem("userId");
+    this.selectstatusfun()
+
   },
   methods: {
     handleSelect (key, keyPath) {
       console.log(key, keyPath);
+    },
+    async selectstatusfun(){
+      console.log("selectstatusfun----",sessionStorage.getItem('userId'))
+      const { data: res } = await this.$http.post('selectPersonById', $qs.stringify(this.selectstatus));
+      if(res==null){
+        console.log('status获取失败');
+      }
+      console.log('res:'+JSON.stringify(res));
+      sessionStorage.setItem("userstatus",res.status);
+      console.log('存入的userstatus:'+sessionStorage.getItem("userstatus"))
     }
   }
 }

@@ -106,6 +106,7 @@
 
 <script>
 import headercomponent from '../components/headercomponent.vue'
+import $qs from 'qs'
 export default {
   components: {
     headercomponent
@@ -143,7 +144,11 @@ export default {
         },
       ],
       houseId: 0,
-      likebtn: false
+      likebtn: false,
+      likeform:{
+        buyderId:null,
+        houseId:null
+      },
     }
   },
   created () {
@@ -157,22 +162,35 @@ export default {
       console.log("house:" + this.house);
     },
     // 添加收藏
-    async addlike(id){
-      const {data:res} =await this.$http.post('insertLike',{
-        buyderId:1,
-        houseid:id
-      });
+    async addlike (id) {
+      this.likeform.buyderId=sessionStorage.getItem("userId");
+      this.likeform.houseId=id;
+      console.log("addlikeform:"+JSON.stringify(this.likeform));
+      const { data: res } = await this.$http.post('insertLike', $qs.stringify(this.likeform));
+      if(res!==1){
+        return alert("添加收藏失败!");
+      }
+      alert("添加收藏");
     },
-    async cancellike(id){
-      
+    async cancellike (id) {
+      this.likeform.buyderId=sessionStorage.getItem("userId");
+      this.likeform.houseId=id;
+      console.log("addlikeform:"+JSON.stringify(this.likeform));
+      const { data: res } = await this.$http.post('deleteLike', $qs.stringify(this.likeform));
+      if(res!==1){
+        return alert("取消收藏失败!");
+      }
+      alert("取消收藏");
     },
     likehouseclick (id) {
       console.log("likehouseclick" + id);
       this.likebtn = !this.likebtn;
-      if(this.likebtn==true){
+      if (this.likebtn == true) {
         this.addlike(id);
-      }else if(this.likebtn==false){
-
+        console.log('添加收藏');
+      } else if (this.likebtn == false) {
+        this.cancellike (id);
+        console.log('取消收藏');
       }
     }
   }

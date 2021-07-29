@@ -7,7 +7,7 @@
         <img src="../assets/images/conglogo.png">
       </el-menu-item>
     </el-menu>
-    <div class="materialContainer">
+    <div class="materialContainer" >
       <div class="box">
         <div class="title">登录</div>
         <div class="input">
@@ -95,7 +95,8 @@ export default {
       registform: {
         account: null,
         password: null
-      }
+      },
+     
     }
   },
   methods: {
@@ -129,6 +130,9 @@ export default {
       this.loginform.account = this.onlineInput.name;
       this.loginform.password = this.onlineInput.password;
       this.login();
+      console.log("主函数----",sessionStorage.getItem('userId'))
+
+      this.selectstatusfun();
     },
     async login () {
       const { data: res } = await this.$http.post('inlogin', $qs.stringify(this.loginform));
@@ -138,8 +142,10 @@ export default {
       }
       alert("登录成功！");
       sessionStorage.setItem("userId", res);
+      console.log("主函数----",sessionStorage.getItem('userId'))
       this.$router.push({ path: '/' });
     },
+    
     // 注册按钮
     // registerFunction(){
     //   console.log("用户注册的用户名："+this.Registered.name);

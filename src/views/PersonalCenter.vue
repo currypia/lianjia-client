@@ -11,11 +11,12 @@
         <div class="modifyside">
           <el-form ref="form"
                    :model="form"
+                   :rules="loginFormRules"
                    label-width="80px">
-            <el-form-item label="修改账号">
+            <el-form-item label="修改账号" prop="account">
               <el-input v-model="form.account"></el-input>
             </el-form-item>
-            <el-form-item label="修改密码">
+            <el-form-item label="修改密码" prop="password">
               <el-input v-model="form.password"></el-input>
             </el-form-item>
             <el-button type="primary"
@@ -44,9 +45,36 @@ export default {
       {
         account: null,
         password: null,
-        userid: null
+        userid: null,
+      },
+      loginFormRules: {
+        account: [
+          {
+            required: true,
+            message: "请输入修改的登录名",
+            trigger: "blur",
+          },
+          {
+            min: 3,
+            max: 10,
+            message: "登录名长度在 3 到 10 个字符",
+            trigger: "blur",
+          },
+        ],
+        password: [
+          {
+            required: true,
+            message: "请输入修改的密码",
+            trigger: "blur",
+          },
+          {
+            min: 6,
+            max: 15,
+            message: "密码长度在 6 到 15 个字符",
+            trigger: "blur",
+          },
+        ],
       }
-
     }
   },
   methods: {

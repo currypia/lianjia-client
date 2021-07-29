@@ -120,16 +120,16 @@ export default {
           label: "江南大道中"
         },
         {
-          key:'新塘北',
-          label:'新塘北'
+          key: '新塘北',
+          label: '新塘北'
         },
         {
-          key:'市桥',
-          label:'市桥'
+          key: '市桥',
+          label: '市桥'
         },
         {
-          key:'江南西',
-          label:'江南西'
+          key: '江南西',
+          label: '江南西'
         }
       ],
       // 面积复选框List
@@ -224,20 +224,18 @@ export default {
         this.selectedItem.maxarea = null,
         this.selectedItem.minarea = this.form.areaSize.minarea;
       this.selectedItem.maxarea = this.form.areaSize.maxarea;
-
       console.log("面积,最小：" + this.selectedItem.minarea + ";最大：" + this.selectedItem.maxarea);
       console.log("selectedItem:" + JSON.stringify(this.selectedItem));
-
     },
     handleCheckDatasChange3 () {
       this.selectedItem.minprice = null,
-        this.selectedItem.maxprice = null,
-        this.selectedItem.minprice = this.form.price.minprice;
+      this.selectedItem.maxprice = null,
+      this.selectedItem.minprice = this.form.price.minprice;
       this.selectedItem.maxprice = this.form.price.maxprice;
       console.log("价格,最小：" + this.selectedItem.minprice + ";最大：" + this.selectedItem.maxprice);
       console.log("selectedItem:" + JSON.stringify(this.selectedItem));
     },
-    
+
     chooesMenu: function (index) {
       this.chooesedliIndex = index;
     },
