@@ -28,10 +28,6 @@ import AdminPerson from "../../components/backstage/admin/AdminPerson.vue"
       return {
         activeName: 'first',
         Repack:{
-            id:this.$route.params.id,
-            name:this.$route.params.name,
-            address:this.$route.params.address,
-            num:this.$route.params.num,
         },
       }
     },

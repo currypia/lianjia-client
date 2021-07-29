@@ -43,14 +43,10 @@
                       prop='managerid'>
           <el-select v-model="form.managerid"
                      placeholder="请选择经理">
-            <el-option label="curry"
-                       value="curry"></el-option>
-            <el-option label="whale"
-                       value="whale"></el-option>
             <el-option label="Tom"
-                       value="Tom"></el-option>
-            <el-option label="bhots"
-                       value="bhots"></el-option>
+                       value="2"></el-option>
+            <el-option label="stronge"
+                       value="7"></el-option>
 
           </el-select>
 

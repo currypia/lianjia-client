@@ -42,8 +42,7 @@
           <el-form-item label="头像">
           <el-image
             style="width: 100px; height: 100px"
-            :src="Person.img"
-            :fit="fit"></el-image>
+            :src="Person.img"></el-image>
         </el-form-item>
         <el-form-item label="姓名">
           <el-input v-model="Person.name"></el-input>
@@ -97,8 +96,7 @@ export default {
         const res = await  this.$http.get("personList")        
         this.PersonList=res.data;
         console.log(res.data)
-        this.Noticelist = res.data;
-        this.num = this.Noticelist.length;
+        this.num = this.PersonList.length;
         this.minNum = 0;
         this.MaxNum = this.minNum + 4;
     },

@@ -3,8 +3,7 @@
    
     <div class="TheNotice">
         <div class="list1">购买者</div>
-        <div class="list1">房子id</div>
-        <div class="list1">房产经理</div>
+        <div class="list1">房子</div>
         <div class="list1">购买时间</div>
         <div class="list1">购买日期</div>
         <div class="list1">购买合同</div>
@@ -18,8 +17,7 @@
     >
     
     <div class="list">{{item.sellerid}}</div>
-    <div  class="list">{{item.houseid}}</div>
-    <div class="list">{{item.managerid}}</div>
+    <div  class="list">{{item.title}}</div>
     <div class="list">{{item.builddate}}</div>
     <div class="list">{{item.contract}}</div>
     <div class="list">{{item.thestatus}}</div>
@@ -31,19 +29,35 @@
       layout="prev, pager, next"
       :page-size="TheitemNum"
       class="page"
-      :total="num"
-    >
+      :total="num">
     </el-pagination>
 
 
-    <el-dialog title="修改信息" :visible.sync="dialogFormVisible">
+    <el-dialog title="查看信息" :visible.sync="dialogFormVisible">
         
+        
+        <el-form ref="form" :model="Sell" label-width="80px">
+          <el-form-item label="房子">
+            <el-input v-model="Sell.title"></el-input>
+          </el-form-item>
+          <el-form-item label="房产经理">
+            <el-input v-model="Sell.managerid"></el-input>
+          </el-form-item>
+          <el-form-item label="创建日期">
+            <el-input v-model="Sell.builddate"></el-input>
+          </el-form-item>
+          <el-form-item label="合同">
+            <el-input v-model="Sell.contract"></el-input>
+          </el-form-item>
+          <el-form-item label="状态">
+            <el-input v-model="Sell.thestatus"></el-input>
+          </el-form-item>
+      </el-form>
       
 
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="SubmitChance"
-          >确 定</el-button
+        <el-button type="primary" @click="SubmitChance">确 定</el-button
         >
       </div>
     </el-dialog>
@@ -71,12 +85,13 @@ export default {
     };
   },
     async created() {
-        var buyderId=1
+        this.buyderId=sessionStorage.getItem('userId');
+        console.log('在created中获取到的userId:'+this.buyderId)
+
         const res = await  this.$http.post("selectSellbuyderId?buyderId="+this.buyderId)        
         this.SellList=res.data;
-        console.log(res.data)
-        this.Noticelist = res.data;
-        this.num = this.Noticelist.length;
+        // console.log(res.data)
+        this.num = this.SellList.length;
         this.minNum = 0;
         this.MaxNum = this.minNum + 4;
     },

@@ -47,9 +47,10 @@
                         placeholder="输入关键字搜索" />
             </template>
             <template slot-scope="scope">
-              <el-button size="mini" :disabled="scope.row.status!=='未通过'"
+              <el-button size="mini"
+                         :disabled="scope.row.status!=='未通过'"
                          @click="Submit(scope.$index, scope.row)">发送</el-button>
-                         
+
               <el-button size="mini"
                          @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
               <el-button size="mini"
@@ -101,8 +102,10 @@
                       :label-width="formLabelWidth">
           <el-select v-model="dialogform.managerid"
                      placeholder="请选择经理">
-            <el-option label="1"
-                       value="1"></el-option>
+            <el-option label="Tom"
+                       value="2"></el-option>
+            <el-option label="stronge"
+                       value="7"></el-option>
 
           </el-select>
         </el-form-item>
@@ -197,9 +200,9 @@ export default {
       },
       dialogvisible: false,
       currentHouse: {},
-      sendDta:{
-        houseid:null,
-        huousestatus:'已发送'
+      sendDta: {
+        houseid: null,
+        huousestatus: '已发送'
       }
     }
   },
@@ -280,14 +283,14 @@ export default {
       this.$router.go(0);
     },
     // 发送按钮
-    Submit(index,row){
-      console.log('houseid:'+row.houseid);
-      this.sendDta.houseid=row.houseid;
+    Submit (index, row) {
+      console.log('houseid:' + row.houseid);
+      this.sendDta.houseid = row.houseid;
       this.submitasy();
     },
-    async submitasy(){
-      const {data:res} = await this.$http.post('ChanceStatus',$qs.stringify(this.sendDta));
-      if(res!==1){
+    async submitasy () {
+      const { data: res } = await this.$http.post('ChanceStatus', $qs.stringify(this.sendDta));
+      if (res !== 1) {
         return alert("发送失败");
       }
       alert("发送成功");

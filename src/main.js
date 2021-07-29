@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './vuex'
 import qs from 'qs'
-
+import * as echarts from 'echarts'
 import ElementUI from 'element-ui'
 import $ from 'jquery'
 import 'element-ui/lib/theme-chalk/index.css' 
@@ -11,6 +11,8 @@ import 'element-ui/lib/theme-chalk/index.css'
 
 import axios from 'axios'
 
+
+Vue.prototype.$echarts = echarts
 
 Vue.config.productionTip = false;
 Vue.prototype.$=$;

@@ -13,13 +13,10 @@
       </el-menu-item>
       <el-menu-item index="/e">展览中心</el-menu-item>
       <el-menu-item index="/b">业务中心</el-menu-item>
-      <el-menu-item index="/p"
-                    v-if="successLogin!=0">个人中心</el-menu-item>
-      <el-menu-item index="/l"
-                    v-if="successLogin=0">登录</el-menu-item>
       <el-menu-item index="/sidebar">后台中心</el-menu-item>
-      <el-menu-item v-if="successLogin!=0"
-                    @click="signout">登出</el-menu-item>
+      <el-menu-item index="/p"  v-if="successLogin!==0">个人中心</el-menu-item>
+      <el-menu-item index="/l" v-if="successLogin==0">登录</el-menu-item>
+      <el-menu-item v-if="successLogin!==0"   @click="signout">登出</el-menu-item>
     </el-menu>
   </div>
 </template>

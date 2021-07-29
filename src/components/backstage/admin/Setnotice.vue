@@ -89,7 +89,6 @@ export default {
         // console.log(`当前id: ${id}`);
         for (var i=0;i<this.num;i++){
             if(this.Noticelist[i].noticeid==id){
-                // console.log(`当前内容: ${i}`);
                 this.noticeFrom.title=this.Noticelist[i].title;
                 this.noticeFrom.context=this.Noticelist[i].context;
                 this.noticeFrom.noticeId=this.Noticelist[i].noticeid;
@@ -103,9 +102,9 @@ export default {
       const res = await  this.$http.post("updateNotice", $qs.stringify(this.noticeFrom))
       console.log(res)
       this.dialogFormVisible = false;
-    //   if(res!=""){
-    //       location.reload();
-    //   }
+      if(res!=""){
+          location.reload();
+      }
       
     }, 
   },

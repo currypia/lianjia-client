@@ -1,35 +1,30 @@
 <template>
   <div class="bg">
-    <div
-      class="TheNotice"
-      v-for="item in Noticelist.slice(minNum, MaxNum)"
-      :key="item.noticeid"
-    >
+    <div class="TheNotice"
+         v-for="item in Noticelist.slice(minNum, MaxNum)"
+         :key="item.noticeid">
       <div>
-        {{ item.title }}- - - -  {{item.buliddate}}
+        {{ item.title }}- - - - {{item.buliddate}}
       </div>
-       <el-divider></el-divider>
+      <el-divider></el-divider>
       <div>{{ item.context }}</div>
     </div>
-    <el-pagination
-    class="page"
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
-      layout="prev, pager, next"
-      :page-size="TheitemNum"
-      :total="num"
-    >
+    <el-pagination class="page"
+                   @size-change="handleSizeChange"
+                   @current-change="handleCurrentChange"
+                   layout="prev, pager, next"
+                   :page-size="TheitemNum"
+                   :total="num">
     </el-pagination>
 
-    
   </div>
 </template>
 
 <script>
-import $qs from 'qs'
+import $qs from 'qs'
 export default {
   name: "Setnotice",
-  data() {
+  data () {
     return {
       Noticelist: [],
       num: 0, //总条数
@@ -37,14 +32,14 @@ export default {
       MaxNum: 0,//最大
       TheitemNum: 4,//分页条数
       dialogFormVisible: false,
-      noticeFrom:{
-          context:"",
-          noticeId:"",
-          title:"",
+      noticeFrom: {
+        context: "",
+        noticeId: "",
+        title: "",
       }
     };
   },
-  async created() {
+  async created () {
     const res = await this.$http.get(
       "selectNoticeList"
     );
@@ -53,26 +48,26 @@ export default {
     this.minNum = 0;
     this.MaxNum = this.minNum + 4;
   },
-  mounted() {},
+  mounted () { },
   methods: {
-    handleSizeChange(val) {
-      console.log(`每页 ${val} 条`);
+    handleSizeChange (val) {
+      // console.log(`每页 ${val} 条`);
     },
-    handleCurrentChange(val) {
+    handleCurrentChange (val) {
       this.MaxNum = val * 4;
       if (this.MaxNum > this.num) {
-        this.MaxNum =this.num + 1;
-        console.log(`触发`);
+        this.MaxNum = this.num + 1;
+        // console.log(`触发`);
       }
       this.minNum = this.MaxNum - 4;
-      console.log(`minNum:` + this.minNum +`  MaxNum:` +this.MaxNum +`  num:` +this.num);
+      // console.log(`minNum:` + this.minNum +`  MaxNum:` +this.MaxNum +`  num:` +this.num);
     },
   },
 };
 </script>
 
 <style scoped>
-.page{
+.page {
   margin-top: 20px;
 }
 .TheNotice {
