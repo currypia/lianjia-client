@@ -4,7 +4,8 @@
              mode="horizontal"
              text-color="#fff"
              router
-             active-text-color="#ffd04b">
+             active-text-color="#ffd04b"
+             :default-active="$router.currentRoute.path">
       <el-menu-item index="/">
         <a href="#"
            class="logo">
@@ -14,9 +15,12 @@
       <el-menu-item index="/e">展览中心</el-menu-item>
       <el-menu-item index="/b">业务中心</el-menu-item>
       <el-menu-item index="/sidebar">后台中心</el-menu-item>
-      <el-menu-item index="/p"  v-if="successLogin!==0">个人中心</el-menu-item>
-      <el-menu-item index="/l" v-if="successLogin==0">登录</el-menu-item>
-      <el-menu-item v-if="successLogin!==0"   @click="signout">登出</el-menu-item>
+      <el-menu-item index="/p"
+                    v-if="userId!==0">个人中心</el-menu-item>
+      <el-menu-item index="/l"
+                    v-if="userId==0">登录</el-menu-item>
+      <el-menu-item index="/" v-if="userId!==0"
+                    @click="signout">登出</el-menu-item>
     </el-menu>
   </div>
 </template>
@@ -29,12 +33,13 @@ export default {
   data () {
     return {
       // 用户登录状态，已登录为1，未登录为0
-      successLogin: 1
+      userId: 0
     }
   },
   mounted () {
-    console.log("successLogin:" + this.successLogin);
-    this.successLogin = localStorage.getItem("successLogin");
+    this.userId = sessionStorage.getItem("userId");
+    // console.log("在header中的userId:" + this.userId);
+
   },
   methods: {
     // 退出登录
@@ -72,7 +77,7 @@ a {
   filter: alpha(opacity=10);
   border-bottom: 0px;
 }
-/*  menu hover&focus  star */ 
+/*  menu hover&focus  star */
 .el-submenu_title:hover {
   border-color: rgba(255, 255, 255, 0) portant;
 }

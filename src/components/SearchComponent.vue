@@ -19,19 +19,36 @@
 </template>
 
 <script>
+import $qs from 'qs'
 export default {
   name: 'Search',
   data () {
     return {
       // 搜索词条
-      input: ''
+      input: '',
+      searchdata: {
+          location:'',
+          title:''
+      }
     }
   },
   methods: {
     search(){
       console.log("搜索内容："+this.input);
+      this.searchdata.location=this.input;
+      this.searchdata.title=this.input;
+      this.searchfun();
+    },
+    async searchfun(){
+      const {data:res} = await this.$http.get('slectByConcat?location='+this.searchdata.location+"&title="+this.searchdata.title);
+      console.log('模糊查询，res:'+JSON.stringify(res));
+      if(res==null){
+        alert("没有对应的房产")
+      }
+      this.$router.push('/e');
+      sessionStorage.setItem('searchResult',res);
+      console.log('在搜索准备传值过去，res:'+JSON.stringify(sessionStorage.getItem('searchResult')));
     }
-
   }
 }
 </script>

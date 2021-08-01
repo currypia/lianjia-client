@@ -100,9 +100,26 @@ export default {
   created () {
     this.status = sessionStorage.getItem('userstatus')
     console.log('在sidebar中获取的status:' + this.status);
-    // if (this.status != 3) {
-    //   sideList[5].
-    //     }
+  },
+  watch:{
+    // 路由监听
+    $route(to,from){
+      console.log("url:"+to.name);
+      if(this.status==1&&to.name=='admin'){
+        alert("用户禁止访问！");
+        this.$router.push('/Likestar')
+      }
+
+      if(this.status==2&&to.name=='admin'){
+        alert("房产经理禁止访问！");
+        this.$router.push('/Likestar')
+      }
+
+      if(this.status==1&&to.name=='ChanceHouse'){
+        alert("用户禁止访问！");
+        this.$router.push('/Likestar')
+      }
+    }
   },
   methods: {
   },
@@ -120,6 +137,7 @@ export default {
 a {
   text-decoration: none;
   color: white;
+
 }
 .BackstageMain {
   margin-top: 12px;

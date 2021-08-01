@@ -4,7 +4,8 @@
              mode="horizontal"
              text-color="#fff"
              router
-             active-text-color="#ffd04b">
+             active-text-color="#ffd04b"
+             :default-active="$router.currentRoute.path">
       <el-menu-item index="/">
         <a href="#"
            class="logo">
@@ -48,7 +49,8 @@ export default {
   data () {
     return {
       // 用户登录状态，已登录为1，未登录为0
-      userId: 0
+      userId: 0,
+      activeIndex:2 
     }
   },
   mounted () {

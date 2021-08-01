@@ -123,6 +123,10 @@ export default {
   created () {
     this.morenDisplay = 1;
     this.getHouseList();
+    if(sessionStorage.getItem('searchResult')!==null){
+      this.sellList=sessionStorage.getItem('searchResult');
+      console.log('跳转之后赋值，sellList：'+JSON.stringify(this.sellList))
+    }
   },
   methods: {
     chooesMenu: function (index) {
